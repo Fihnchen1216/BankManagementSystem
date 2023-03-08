@@ -7,6 +7,8 @@ import com.toedter.calendar.*;
 
 public class SignupOne extends JFrame{
 	
+	//long random;
+	//JtextField nameTextField, fnameTextField, dob
 	SignupOne(){
 		setLayout(null);
 		
