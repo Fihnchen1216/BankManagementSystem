@@ -6,52 +6,45 @@ import java.util.*;
 import com.toedter.calendar.*;
 import java.awt.event.*;
 
-public class SignupOne extends JFrame implements ActionListener{
+public class SignupTwo extends JFrame implements ActionListener{
 	
-	long random;
+	
 	JTextField fnameTextField, lnameTextField, dobTextField, emailTextField, addressTextField, cityTextField, stateTextField,pinTextField;
 	JButton next;
 	JRadioButton male, female, other, married, unmarried;
 	JDateChooser dateChooser;
-	SignupOne(){
+	SignupTwo(){
 		
-		setTitle("NEW ACCOUNT APPLICATION FORM");
+		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 2");
 		setLayout(null);
 		
-		Random ran = new Random();
-		random = Math.abs((ran.nextLong() % 9000L) + 1000L);
 		
-		JLabel formno = new JLabel("APPLICATION FORM NO. " + random); 
-		formno.setFont(new Font("Raleway", Font.BOLD, 38));
-		formno.setBounds(140,20,600,40);
-		add(formno);
+		JLabel additionalDetails = new JLabel("Page 2: Additonal Details");
+		additionalDetails.setFont(new Font("Raleway", Font.BOLD,22));
+		additionalDetails.setBounds(290,80,400,30);
+		add(additionalDetails);
 		
-		JLabel personDetails = new JLabel("Page 1: Personal Detals");
-		personDetails.setFont(new Font("Raleway", Font.BOLD,22));
-		personDetails.setBounds(290,80,400,30);
-		add(personDetails);
-		
-		JLabel fname = new JLabel("First Name:");
-		fname.setFont(new Font("Raleway", Font.BOLD,20));
-		fname.setBounds(100,140,200,30);
-		add(fname);
+		JLabel religion = new JLabel("Religion:");
+		religion.setFont(new Font("Raleway", Font.BOLD,20));
+		religion.setBounds(100,140,200,30);
+		add(religion);
 		
 		fnameTextField = new JTextField();
 		fnameTextField.setFont(new Font("Raleway", Font.BOLD, 14));
 		fnameTextField.setBounds(300,140,400,30);
 		add(fnameTextField);
 		
-		JLabel lname = new JLabel("Last Name:");
-		lname.setFont(new Font("Raleway", Font.BOLD,20));
-		lname.setBounds(100,190,200,30);
-		add(lname);
+		JLabel category = new JLabel("Category:");
+		category.setFont(new Font("Raleway", Font.BOLD,20));
+		category.setBounds(100,190,200,30);
+		add(category);
 		
 		lnameTextField = new JTextField();
 		lnameTextField.setFont(new Font("Raleway", Font.BOLD, 14));
 		lnameTextField.setBounds(300,190,400,30);
 		add(lnameTextField);
 		
-		JLabel dob = new JLabel("Date of Birth:");
+		JLabel dob = new JLabel("Income:");
 		dob.setFont(new Font("Raleway", Font.BOLD,20));
 		dob.setBounds(100,240,200,30);
 		add(dob);
@@ -61,7 +54,7 @@ public class SignupOne extends JFrame implements ActionListener{
         dateChooser.setForeground(new Color(105,105,105));
 		add(dateChooser);
 		
-		JLabel gender = new JLabel("Gender:");
+		JLabel gender = new JLabel("Education:");
 		gender.setFont(new Font("Raleway", Font.BOLD,20));
 		gender.setBounds(100,290,200,30);
 		add(gender);
@@ -81,7 +74,7 @@ public class SignupOne extends JFrame implements ActionListener{
         gendergroup.add(female);
                 
 		
-		JLabel email = new JLabel("Email Address:");
+		JLabel email = new JLabel("Qualification:");
 		email.setFont(new Font("Raleway", Font.BOLD,20));
 		email.setBounds(100,340,200,30);
 		add(email);
@@ -91,7 +84,7 @@ public class SignupOne extends JFrame implements ActionListener{
 		emailTextField.setBounds(300,340,400,30);
 		add(emailTextField);
 		
-		JLabel marital = new JLabel("Marital Status:");
+		JLabel marital = new JLabel("Occupation:");
 		marital.setFont(new Font("Raleway", Font.BOLD,20));
 		marital.setBounds(100,390,200,30);
 		add(marital);
@@ -116,7 +109,7 @@ public class SignupOne extends JFrame implements ActionListener{
         maritalgroup.add(unmarried);
         maritalgroup.add(other);
 		
-		JLabel address = new JLabel("Address:");
+		JLabel address = new JLabel("PAN Number:");
 		address.setFont(new Font("Raleway", Font.BOLD,20));
 		address.setBounds(100,440,200,30);
 		add(address);
@@ -126,7 +119,7 @@ public class SignupOne extends JFrame implements ActionListener{
 		addressTextField.setBounds(300,440,400,30);
 		add(addressTextField);
 		
-		JLabel city = new JLabel("City:");
+		JLabel city = new JLabel("Aadhar Number:");
 		city.setFont(new Font("Raleway", Font.BOLD,20));
 		city.setBounds(100,490,200,30);
 		add(city);
@@ -136,7 +129,7 @@ public class SignupOne extends JFrame implements ActionListener{
 		cityTextField.setBounds(300,490,400,30);
 		add(cityTextField);
 		
-		JLabel state = new JLabel("State:");
+		JLabel state = new JLabel("Senior Citizen:");
 		state.setFont(new Font("Raleway", Font.BOLD,20));
 		state.setBounds(100,540,200,30);
 		add(state);
@@ -146,7 +139,7 @@ public class SignupOne extends JFrame implements ActionListener{
 		stateTextField.setBounds(300,540,400,30);
 		add(stateTextField);
 		
-		JLabel pincode = new JLabel("PIN code:");
+		JLabel pincode = new JLabel("Existing Account:");
 		pincode.setFont(new Font("Raleway", Font.BOLD,20));
 		pincode.setBounds(100,590,200,30);
 		add(pincode);
@@ -173,7 +166,7 @@ public class SignupOne extends JFrame implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent ae) {
-		String formno = ""+random;
+		//String formno = ""+random;
 		String fname = fnameTextField.getText();
 		String lname = lnameTextField.getText();
 		String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
@@ -203,8 +196,8 @@ public class SignupOne extends JFrame implements ActionListener{
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
         		Conn c = new Conn();
-        		String query = "insert into signup values('"+formno+"','"+fname+"','"+ lname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+city+"','"+state+"','"+pin+"')";
-        		c.s.executeUpdate(query);
+        		//String query = "insert into signup values('"+formno+"','"+fname+"','"+ lname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+city+"','"+state+"','"+pin+"')";
+        		//c.s.executeUpdate(query);
         	}
         } catch(Exception e) {
         	System.out.println(e);
@@ -212,7 +205,7 @@ public class SignupOne extends JFrame implements ActionListener{
         
 	}
 	public static void main(String[] args) {
-		new SignupOne();
+		new SignupTwo();
 
 	}
 	
