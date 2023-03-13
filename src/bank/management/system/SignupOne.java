@@ -5,6 +5,9 @@ import java.awt.*;
 import java.util.*;
 import com.toedter.calendar.*;
 import java.awt.event.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.text.*;
 
 public class SignupOne extends JFrame implements ActionListener{
 	
@@ -13,6 +16,7 @@ public class SignupOne extends JFrame implements ActionListener{
 	JButton next;
 	JRadioButton male, female, other, married, unmarried;
 	JDateChooser dateChooser;
+	
 	SignupOne(){
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM");
@@ -32,6 +36,7 @@ public class SignupOne extends JFrame implements ActionListener{
 		add(personDetails);
 		
 		JLabel fname = new JLabel("First Name:");
+		TextPrompt tp7 = new TextPrompt("First Name", fname);
 		fname.setFont(new Font("Raleway", Font.BOLD,20));
 		fname.setBounds(100,140,200,30);
 		add(fname);

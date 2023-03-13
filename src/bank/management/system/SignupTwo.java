@@ -13,6 +13,9 @@ public class SignupTwo extends JFrame implements ActionListener{
 	JButton next;
 	JRadioButton male, female, other, married, unmarried;
 	JDateChooser dateChooser;
+	
+	JComboBox religionComboBox, categoryComboBox, incomeComboBox, educationComboBox, occupationComboBox;
+	
 	SignupTwo(){
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 2");
@@ -29,85 +32,69 @@ public class SignupTwo extends JFrame implements ActionListener{
 		religion.setBounds(100,140,200,30);
 		add(religion);
 		
-		fnameTextField = new JTextField();
-		fnameTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		fnameTextField.setBounds(300,140,400,30);
-		add(fnameTextField);
+		String religions[] = {"A","B","C"};
+		religionComboBox = new JComboBox(religions);
+		religionComboBox.setBackground(Color.WHITE);
+		religionComboBox.setFont(new Font("Raleway", Font.BOLD,14));
+		religionComboBox.setBounds(300,140,400,30);
+		add(religionComboBox);
 		
 		JLabel category = new JLabel("Category:");
 		category.setFont(new Font("Raleway", Font.BOLD,20));
 		category.setBounds(100,190,200,30);
 		add(category);
 		
-		lnameTextField = new JTextField();
-		lnameTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		lnameTextField.setBounds(300,190,400,30);
-		add(lnameTextField);
+		String categories[] = {"A","B","C"};
+		categoryComboBox = new JComboBox(categories);
+		categoryComboBox.setBackground(Color.WHITE);
+		categoryComboBox.setFont(new Font("Raleway", Font.BOLD,14));
+		categoryComboBox.setBounds(300,190,400,30);
+		add(categoryComboBox);
 		
-		JLabel dob = new JLabel("Income:");
-		dob.setFont(new Font("Raleway", Font.BOLD,20));
-		dob.setBounds(100,240,200,30);
-		add(dob);
+		JLabel income = new JLabel("Income:");
+		income.setFont(new Font("Raleway", Font.BOLD,20));
+		income.setBounds(100,240,200,30);
+		add(income);
 		
-		dateChooser = new JDateChooser();
-		dateChooser.setBounds(300,240,400,30);
-        dateChooser.setForeground(new Color(105,105,105));
-		add(dateChooser);
+		String incomes[] = {"Null","<1,50,000","<2,50,000","<5,00,000","Upto 10,00,000","Above 10,00,000"};
+		incomeComboBox = new JComboBox(incomes);
+		incomeComboBox.setBackground(Color.WHITE);
+		incomeComboBox.setFont(new Font("Raleway", Font.BOLD,14));
+		incomeComboBox.setBounds(300,240,400,30);
+		add(incomeComboBox);
 		
-		JLabel gender = new JLabel("Education:");
-		gender.setFont(new Font("Raleway", Font.BOLD,20));
-		gender.setBounds(100,290,200,30);
-		add(gender);
+		JLabel education = new JLabel("Education:");
+		education.setFont(new Font("Raleway", Font.BOLD,20));
+		education.setBounds(100,290,200,30);
+		add(education);
                 
-        male = new JRadioButton("Male");
-        male.setBounds(300,290,60,30);
-        male.setBackground(Color.WHITE);
-        add(male);
-                
-        female = new JRadioButton("Female");
-        female.setBounds(450,290,120,30);
-        female.setBackground(Color.WHITE);
-        add(female);
-
-        ButtonGroup gendergroup = new ButtonGroup();
-        gendergroup.add(male);
-        gendergroup.add(female);
+		String educations[] = {"Non-Graduate","Graduate","Post-Graduate","Doctrate","Others"};
+		educationComboBox = new JComboBox(educations);
+		educationComboBox.setBackground(Color.WHITE);
+		educationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
+		educationComboBox.setBounds(300,290,400,30);
+		add(educationComboBox);
                 
 		
-		JLabel email = new JLabel("Qualification:");
-		email.setFont(new Font("Raleway", Font.BOLD,20));
-		email.setBounds(100,340,200,30);
-		add(email);
+		JLabel occupation = new JLabel("Occupation:");
+		occupation.setFont(new Font("Raleway", Font.BOLD,20));
+		occupation.setBounds(100,340,200,30);
+		add(occupation);
 		
-		emailTextField = new JTextField();
-		emailTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		emailTextField.setBounds(300,340,400,30);
-		add(emailTextField);
+        String occupations[] = {"Salaried","Self-Employmed","Business","Student","Retired","Others"};
+        occupationComboBox = new JComboBox(occupations);
+        occupationComboBox.setBackground(Color.WHITE);
+        occupationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
+        occupationComboBox.setBounds(300,340,400,30);
+		add(occupationComboBox);
+/*
 		
 		JLabel marital = new JLabel("Occupation:");
 		marital.setFont(new Font("Raleway", Font.BOLD,20));
 		marital.setBounds(100,390,200,30);
 		add(marital);
                 
-        married = new JRadioButton("Married");
-        married.setBounds(300,390,100,30);
-        married.setBackground(Color.WHITE);
-        add(married);
-                
-        unmarried = new JRadioButton("Unmarried");
-        unmarried.setBounds(450,390,100,30);
-        unmarried.setBackground(Color.WHITE);
-        add(unmarried);
-                
-        other = new JRadioButton("Other");
-        other.setBounds(630,390,100,30);
-        other.setBackground(Color.WHITE);
-        add(other);
-                
-        ButtonGroup maritalgroup = new ButtonGroup();
-        maritalgroup.add(married);
-        maritalgroup.add(unmarried);
-        maritalgroup.add(other);
+        
 		
 		JLabel address = new JLabel("PAN Number:");
 		address.setFont(new Font("Raleway", Font.BOLD,20));
@@ -148,6 +135,7 @@ public class SignupTwo extends JFrame implements ActionListener{
 		pinTextField.setFont(new Font("Raleway", Font.BOLD, 14));
 		pinTextField.setBounds(300,590,400,30);
 		add(pinTextField);
+		*/
                 
        next = new JButton("Next");
        next.setBackground(Color.BLACK);
