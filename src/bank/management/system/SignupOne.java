@@ -5,27 +5,27 @@ import java.awt.*;
 import java.util.*;
 import com.toedter.calendar.*;
 import java.awt.event.*;
-import javax.swing.border.*;
-import javax.swing.event.*;
-import javax.swing.text.*;
+
 
 public class SignupOne extends JFrame implements ActionListener{
 	
-	long random;
+	
 	JTextField fnameTextField, lnameTextField, dobTextField, emailTextField, addressTextField, cityTextField, stateTextField,pinTextField;
 	JButton next;
 	JRadioButton male, female, other, married, unmarried;
 	JDateChooser dateChooser;
+	Random ran = new Random();
+	long random = Math.abs((ran.nextLong() % 9000L) + 1000L);
+	String srandom = "" + random;
 	
 	SignupOne(){
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM");
 		setLayout(null);
 		
-		Random ran = new Random();
-		random = Math.abs((ran.nextLong() % 9000L) + 1000L);
 		
-		JLabel formno = new JLabel("APPLICATION FORM NO. " + random); 
+		
+		JLabel formno = new JLabel("APPLICATION FORM NO. " + srandom); 
 		formno.setFont(new Font("Raleway", Font.BOLD, 38));
 		formno.setBounds(140,20,600,40);
 		add(formno);
@@ -36,7 +36,6 @@ public class SignupOne extends JFrame implements ActionListener{
 		add(personDetails);
 		
 		JLabel fname = new JLabel("First Name:");
-		TextPrompt tp7 = new TextPrompt("First Name", fname);
 		fname.setFont(new Font("Raleway", Font.BOLD,20));
 		fname.setBounds(100,140,200,30);
 		add(fname);
@@ -178,7 +177,7 @@ public class SignupOne extends JFrame implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent ae) {
-		String formno = ""+random;
+		String formno = srandom;
 		String fname = fnameTextField.getText();
 		String lname = lnameTextField.getText();
 		String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
@@ -204,12 +203,15 @@ public class SignupOne extends JFrame implements ActionListener{
         String pin = pinTextField.getText();
        
         try {
-        	if(fname.equals("")) {
+        	if(fname.equals("") || lname.equals("") || dob.equals("") || gender.equals("") || email.equals("") || marital.equals("")) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
         		Conn c = new Conn();
         		String query = "insert into signup values('"+formno+"','"+fname+"','"+ lname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+city+"','"+state+"','"+pin+"')";
         		c.s.executeUpdate(query);
+        		
+        		new SignupTwo(srandom).setVisible(true);
+                setVisible(false);
         	}
         } catch(Exception e) {
         	System.out.println(e);
@@ -217,8 +219,7 @@ public class SignupOne extends JFrame implements ActionListener{
         
 	}
 	public static void main(String[] args) {
-		new SignupOne();
-
+		new SignupOne().setVisible(true);
 	}
 	
 

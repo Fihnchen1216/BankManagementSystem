@@ -9,18 +9,30 @@ import java.awt.event.*;
 public class SignupTwo extends JFrame implements ActionListener{
 	
 	
-	JTextField fnameTextField, lnameTextField, dobTextField, emailTextField, addressTextField, cityTextField, stateTextField,pinTextField;
 	JButton next;
-	JRadioButton male, female, other, married, unmarried;
-	JDateChooser dateChooser;
-	
 	JComboBox religionComboBox, categoryComboBox, incomeComboBox, educationComboBox, occupationComboBox;
-	
-	SignupTwo(){
+	JTextField eaccountTextField;
+	JRadioButton eaccountY, eaccountN;
+    String formno;
+    JLabel formnol1,formnol2;
+	SignupTwo(String formno){
 		
+		
+        this.formno = formno;
+
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 2");
 		setLayout(null);
 		
+		formnol1 = new JLabel("Form No:");
+		formnol1.setFont(new Font("Raleway", Font.BOLD, 13));
+		formnol1.setBounds(700,10,60,30);
+	    add(formnol1);
+        
+        formnol2 = new JLabel(formno);
+        formnol2.setFont(new Font("Raleway", Font.BOLD, 13));
+        formnol2.setBounds(760,10,60,30);
+        add(formnol2);
+
 		
 		JLabel additionalDetails = new JLabel("Page 2: Additonal Details");
 		additionalDetails.setFont(new Font("Raleway", Font.BOLD,22));
@@ -32,7 +44,7 @@ public class SignupTwo extends JFrame implements ActionListener{
 		religion.setBounds(100,140,200,30);
 		add(religion);
 		
-		String religions[] = {"A","B","C"};
+		String religions[] = {"", "Christianity", "Buddhism", "Hinduism", "Islam","Judaism","other"};
 		religionComboBox = new JComboBox(religions);
 		religionComboBox.setBackground(Color.WHITE);
 		religionComboBox.setFont(new Font("Raleway", Font.BOLD,14));
@@ -56,7 +68,7 @@ public class SignupTwo extends JFrame implements ActionListener{
 		income.setBounds(100,240,200,30);
 		add(income);
 		
-		String incomes[] = {"Null","<1,50,000","<2,50,000","<5,00,000","Upto 10,00,000","Above 10,00,000"};
+		String incomes[] = {"","<1,50,000","<2,50,000","<5,00,000","Upto 10,00,000","Above 10,00,000"};
 		incomeComboBox = new JComboBox(incomes);
 		incomeComboBox.setBackground(Color.WHITE);
 		incomeComboBox.setFont(new Font("Raleway", Font.BOLD,14));
@@ -68,7 +80,7 @@ public class SignupTwo extends JFrame implements ActionListener{
 		education.setBounds(100,290,200,30);
 		add(education);
                 
-		String educations[] = {"Non-Graduate","Graduate","Post-Graduate","Doctrate","Others"};
+		String educations[] = {"", "Non-Graduate","Graduate","Post-Graduate","Doctrate","Others"};
 		educationComboBox = new JComboBox(educations);
 		educationComboBox.setBackground(Color.WHITE);
 		educationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
@@ -81,61 +93,30 @@ public class SignupTwo extends JFrame implements ActionListener{
 		occupation.setBounds(100,340,200,30);
 		add(occupation);
 		
-        String occupations[] = {"Salaried","Self-Employmed","Business","Student","Retired","Others"};
+        String occupations[] = {"", "Salaried","Self-Employmed","Business","Student","Retired","Others"};
         occupationComboBox = new JComboBox(occupations);
         occupationComboBox.setBackground(Color.WHITE);
         occupationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
         occupationComboBox.setBounds(300,340,400,30);
 		add(occupationComboBox);
-/*
+
+		JLabel eaccount = new JLabel("Existing Account:");
+		eaccount.setFont(new Font("Raleway", Font.BOLD,20));
+		eaccount.setBounds(100,590,200,30);
+		add(eaccount);
 		
-		JLabel marital = new JLabel("Occupation:");
-		marital.setFont(new Font("Raleway", Font.BOLD,20));
-		marital.setBounds(100,390,200,30);
-		add(marital);
-                
+		eaccountY = new JRadioButton("Yes");
+		eaccountY.setFont(new Font("Raleway", Font.BOLD, 14));
+		eaccountY.setBackground(Color.WHITE);
+		eaccountY.setBounds(350,590,100,30);
+        add(eaccountY);
+     
         
-		
-		JLabel address = new JLabel("PAN Number:");
-		address.setFont(new Font("Raleway", Font.BOLD,20));
-		address.setBounds(100,440,200,30);
-		add(address);
-		
-		addressTextField = new JTextField();
-		addressTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		addressTextField.setBounds(300,440,400,30);
-		add(addressTextField);
-		
-		JLabel city = new JLabel("Aadhar Number:");
-		city.setFont(new Font("Raleway", Font.BOLD,20));
-		city.setBounds(100,490,200,30);
-		add(city);
-		
-		cityTextField = new JTextField();
-		cityTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		cityTextField.setBounds(300,490,400,30);
-		add(cityTextField);
-		
-		JLabel state = new JLabel("Senior Citizen:");
-		state.setFont(new Font("Raleway", Font.BOLD,20));
-		state.setBounds(100,540,200,30);
-		add(state);
-		
-		stateTextField = new JTextField();
-		stateTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		stateTextField.setBounds(300,540,400,30);
-		add(stateTextField);
-		
-		JLabel pincode = new JLabel("Existing Account:");
-		pincode.setFont(new Font("Raleway", Font.BOLD,20));
-		pincode.setBounds(100,590,200,30);
-		add(pincode);
-		
-		pinTextField = new JTextField();
-		pinTextField.setFont(new Font("Raleway", Font.BOLD, 14));
-		pinTextField.setBounds(300,590,400,30);
-		add(pinTextField);
-		*/
+        eaccountN = new JRadioButton("No");
+        eaccountN.setFont(new Font("Raleway", Font.BOLD, 14));
+        eaccountN.setBackground(Color.WHITE);
+        eaccountN.setBounds(460,590,100,30);
+        add(eaccountN);
                 
        next = new JButton("Next");
        next.setBackground(Color.BLACK);
@@ -154,46 +135,33 @@ public class SignupTwo extends JFrame implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent ae) {
-		//String formno = ""+random;
-		String fname = fnameTextField.getText();
-		String lname = lnameTextField.getText();
-		String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-		String gender = null;
-		if(male.isSelected()) {
-			gender = "Male";
-		} else if(female.isSelected()){
-			gender = "Female";
-		}
-		String email = emailTextField.getText();
-		String marital = null;
-		if(married.isSelected()) {
-			marital="Married";
-		} else if (unmarried.isSelected()) {
-			marital = "Unmarried";
-		} else if (other.isSelected()) {
-			marital = "other";
-		}
-		
-		String address = addressTextField.getText();
-        String city = cityTextField.getText();
-        String state = stateTextField.getText();
-        String pin = pinTextField.getText();
-       
+		String religion = (String)religionComboBox.getSelectedItem(); 
+        String category = (String)categoryComboBox.getSelectedItem();
+        String income = (String)incomeComboBox.getSelectedItem();
+        String education = (String)educationComboBox.getSelectedItem();
+        String occupation = (String)occupationComboBox.getSelectedItem();
+        String eaccount = "";
+        if(eaccountY.isSelected()) {
+        	eaccount = "Yes";
+        } else if(eaccountN.isSelected()) {
+        	eaccount = "No";
+        }
+        
         try {
-        	if(fname.equals("")) {
+        	if(eaccount.equals("")) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
         		Conn c = new Conn();
-        		//String query = "insert into signup values('"+formno+"','"+fname+"','"+ lname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"','"+address+"','"+city+"','"+state+"','"+pin+"')";
-        		//c.s.executeUpdate(query);
+                String query = "insert into signup2 values('"+formno+"','"+religion+"','"+category+"','"+income+"','"+education+"','"+occupation+"','"+eaccount+"')";
+                c.s.executeUpdate(query);
         	}
         } catch(Exception e) {
-        	System.out.println(e);
+        	e.printStackTrace();
         }
         
 	}
 	public static void main(String[] args) {
-		new SignupTwo();
+		new SignupTwo("").setVisible(true);
 
 	}
 	
