@@ -6,7 +6,7 @@ import java.util.*;
 import com.toedter.calendar.*;
 import java.awt.event.*;
 
-public class SignupTwo extends JFrame implements ActionListener{
+public class Signup2 extends JFrame implements ActionListener{
 	
 	
 	JButton next;
@@ -15,13 +15,20 @@ public class SignupTwo extends JFrame implements ActionListener{
 	JRadioButton eaccountY, eaccountN;
     String formno;
     JLabel formnol1,formnol2;
-	SignupTwo(String formno){
+    Signup2(String formno){
 		
 		
         this.formno = formno;
 
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 2");
 		setLayout(null);
+		
+		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
+        Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        ImageIcon i3 = new ImageIcon(i2);
+        JLabel l14 = new JLabel(i3);
+        l14.setBounds(150, 0, 100, 100);
+        add(l14);
 		
 		formnol1 = new JLabel("Form No:");
 		formnol1.setFont(new Font("Raleway", Font.BOLD, 13));
@@ -154,6 +161,9 @@ public class SignupTwo extends JFrame implements ActionListener{
         		Conn c = new Conn();
                 String query = "insert into signup2 values('"+formno+"','"+religion+"','"+category+"','"+income+"','"+education+"','"+occupation+"','"+eaccount+"')";
                 c.s.executeUpdate(query);
+                
+                new Signup3(formno).setVisible(true);
+                setVisible(false);
         	}
         } catch(Exception e) {
         	e.printStackTrace();
@@ -161,7 +171,7 @@ public class SignupTwo extends JFrame implements ActionListener{
         
 	}
 	public static void main(String[] args) {
-		new SignupTwo("").setVisible(true);
+		new Signup2("").setVisible(true);
 
 	}
 	

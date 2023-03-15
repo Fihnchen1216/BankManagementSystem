@@ -3,70 +3,72 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener{
     
-        JButton login, signup, clear;
-	JTextField cardTextField;
-	JPasswordField pinTextField;
+	JLabel lblWelcome, lblCardno,lblPin;
+    JButton btnLogin, btnSignup, btnClear;
+	JTextField txtCard;
+	JPasswordField pfPin;
 	
 	Login(){
 		setTitle("AUTOMATED TELLER MACHINE");
 		
 		setLayout(null);
 		
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
-		Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-		ImageIcon i3 = new ImageIcon(i2);
-		JLabel label = new JLabel(i3);
-		label.setBounds(70,10,100,100);
-		add(label);
+		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
+		Image img2 = img1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+		ImageIcon img3 = new ImageIcon(img2);
+		JLabel lbl1 = new JLabel(img3);
+		lbl1.setBounds(70,10,100,100);
+		add(lbl1);
 		
-		JLabel text = new JLabel("Welcome to ATM");
-		text.setFont(new Font("Osward", Font.BOLD, 38));
-		text.setBounds(200,40,400,40);
-		add(text);
+		lblWelcome = new JLabel("Welcome to ATM");	
+		lblWelcome.setFont(new Font("Osward", Font.BOLD, 38));
+		lblWelcome.setBounds(200,40,400,40);
+		add(lblWelcome);
 		
-		JLabel cardno = new JLabel("Card No:");
-		cardno.setFont(new Font("Raleway", Font.BOLD, 28));
-		cardno.setBounds(120,150,150,40);
-		add(cardno);
+		lblCardno = new JLabel("Card No:");
+		lblCardno.setFont(new Font("Raleway", Font.BOLD, 28));
+		lblCardno.setBounds(120,150,150,40);
+		add(lblCardno);
 		
-		cardTextField = new JTextField();
-		cardTextField.setBounds(300,150,230,30);
-		cardTextField.setFont(new Font("Arial", Font.BOLD, 14));
-		add(cardTextField);
+		txtCard = new JTextField(15);
+		txtCard.setBounds(300,150,230,30);
+		txtCard.setFont(new Font("Arial", Font.BOLD, 14));
+		add(txtCard);
 		
-		JLabel pin = new JLabel("PIN:");
-		pin.setFont(new Font("Raleway", Font.BOLD, 28));
-		pin.setBounds(120,220,250,30);
-		add(pin);
+		lblPin = new JLabel("PIN:");
+		lblPin.setFont(new Font("Raleway", Font.BOLD, 28));
+		lblPin.setBounds(120,220,250,30);
+		add(lblPin);
 		
-		pinTextField = new JPasswordField();
-		pinTextField.setBounds(300,220,230,30);
-		pinTextField.setFont(new Font("Arial", Font.BOLD, 14));
-		add(pinTextField);
+		pfPin = new JPasswordField(15);
+		pfPin.setBounds(300,220,230,30);
+		pfPin.setFont(new Font("Arial", Font.BOLD, 14));
+		add(pfPin);
 		
-		login = new JButton("Sign in");
-		login.setBounds(300,300,100,30);
-		login.setBackground(Color.BLACK);
-		login.setForeground(Color.WHITE);
-		login.addActionListener(this);
-		add(login);
+		btnLogin = new JButton("Sign in");
+		btnLogin.setBounds(300,300,100,30);
+		btnLogin.setBackground(Color.BLACK);
+		btnLogin.setForeground(Color.WHITE);
+		btnLogin.addActionListener(this);
+		add(btnLogin);
 		
-		clear = new JButton("Clear");
-		clear.setBounds(430,300,100,30);
-		clear.setBackground(Color.BLACK);
-		clear.setForeground(Color.WHITE);
-		clear.addActionListener(this);
-		add(clear);
+		btnClear = new JButton("Clear");
+		btnClear.setBounds(430,300,100,30);
+		btnClear.setBackground(Color.BLACK);
+		btnClear.setForeground(Color.WHITE);
+		btnClear.addActionListener(this);
+		add(btnClear);
 		
-		signup = new JButton("Sign up");
-		signup.setBounds(300,350,230,30);
-		signup.setBackground(Color.BLACK);
-		signup.setForeground(Color.WHITE);
-		signup.addActionListener(this);
-		add(signup);
+		btnSignup = new JButton("Sign up");
+		btnSignup.setBounds(300,350,230,30);
+		btnSignup.setBackground(Color.BLACK);
+		btnSignup.setForeground(Color.WHITE);
+		btnSignup.addActionListener(this);
+		add(btnSignup);
 		
 		getContentPane().setBackground(Color.WHITE);
 		
@@ -76,20 +78,29 @@ public class Login extends JFrame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent ae) {
-		if(ae.getSource() == clear) {
-			cardTextField.setText("");
-			pinTextField.setText("");
-		}
-		else if(ae.getSource() == login) {
-			
-		}
-		else if(ae.getSource() == signup) {
-			setVisible(false);
-			new SignupOne().setVisible(true);
+		try {
+			if(ae.getSource() == btnClear) {
+				txtCard.setText("");
+				pfPin.setText("");
+			}
+			else if(ae.getSource() == btnLogin) {
+				Conn c = new Conn();
+	            String sCardno  = txtCard.getText();
+	            String sPin  = pfPin.getText();
+	            String query  = "select * from login where cardno = '"+sCardno+"' and pin = '"+sPin+"'";
+
+	            ResultSet rs = c.s.executeQuery(query);
+			}
+			else if(ae.getSource() == btnSignup) {
+				setVisible(false);
+				new Signup1().setVisible(true);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 	public static void main(String[] args) {
-		new Login();
+        new Login().setVisible(true);
 
 	}
 
