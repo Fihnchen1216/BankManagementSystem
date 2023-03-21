@@ -1,168 +1,166 @@
 package bank.management.system;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.*;
-import com.toedter.calendar.*;
 import java.awt.event.*;
+import javax.swing.*;
+import java.sql.*;
 
 public class Signup2 extends JFrame implements ActionListener{
 	
-	
-	JButton next;
-	JComboBox religionComboBox, categoryComboBox, incomeComboBox, educationComboBox, occupationComboBox;
-	JTextField eaccountTextField;
-	JRadioButton eaccountY, eaccountN;
-    String formno;
-    JLabel formnol1,formnol2;
-    Signup2(String formno){
+	JComboBox cmbReligion, cmbCategory, cmbIncome, cmbEducation, cmbOccupation;
+	JTextField txtEaccount;
+	JRadioButton radEaccountY, radEaccountN;
+    String sFormno;
+    JLabel lblFormnol1,lblFormnol2, lblAdditionalDetail,lblReligion,lblCategory,lblIncome,lblEducation,lblOccupation,lblEaccount;
+    JButton btnNext;
+    Signup2(String sFormno){
 		
 		
-        this.formno = formno;
+        this.sFormno = sFormno;
 
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 2");
 		setLayout(null);
 		
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
-        Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-        ImageIcon i3 = new ImageIcon(i2);
-        JLabel l14 = new JLabel(i3);
-        l14.setBounds(150, 0, 100, 100);
-        add(l14);
+		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
+        Image img2 = img1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        ImageIcon img3 = new ImageIcon(img2);
+        JLabel lbl1 = new JLabel(img3);
+        lbl1.setBounds(150, 0, 100, 100);
+        add(lbl1);
 		
-		formnol1 = new JLabel("Form No:");
-		formnol1.setFont(new Font("Raleway", Font.BOLD, 13));
-		formnol1.setBounds(700,10,60,30);
-	    add(formnol1);
+        lblFormnol1 = new JLabel("Form No:");
+        lblFormnol1.setFont(new Font("Raleway", Font.BOLD, 13));
+        lblFormnol1.setBounds(700,10,60,30);
+	    add(lblFormnol1);
         
-        formnol2 = new JLabel(formno);
-        formnol2.setFont(new Font("Raleway", Font.BOLD, 13));
-        formnol2.setBounds(760,10,60,30);
-        add(formnol2);
+	    lblFormnol2 = new JLabel(sFormno);
+	    lblFormnol2.setFont(new Font("Raleway", Font.BOLD, 13));
+        lblFormnol2.setBounds(760,10,60,30);
+        add(lblFormnol2);
 
 		
-		JLabel additionalDetails = new JLabel("Page 2: Additonal Details");
-		additionalDetails.setFont(new Font("Raleway", Font.BOLD,22));
-		additionalDetails.setBounds(290,80,400,30);
-		add(additionalDetails);
+		lblAdditionalDetail = new JLabel("Page 2: Additonal Details");
+		lblAdditionalDetail.setFont(new Font("Raleway", Font.BOLD,22));
+		lblAdditionalDetail.setBounds(290,80,400,30);
+		add(lblAdditionalDetail);
 		
-		JLabel religion = new JLabel("Religion:");
-		religion.setFont(new Font("Raleway", Font.BOLD,20));
-		religion.setBounds(100,140,200,30);
-		add(religion);
+		lblReligion = new JLabel("Religion:");
+		lblReligion.setFont(new Font("Raleway", Font.BOLD,20));
+		lblReligion.setBounds(100,140,200,30);
+		add(lblReligion);
 		
-		String religions[] = {"", "Christianity", "Buddhism", "Hinduism", "Islam","Judaism","other"};
-		religionComboBox = new JComboBox(religions);
-		religionComboBox.setBackground(Color.WHITE);
-		religionComboBox.setFont(new Font("Raleway", Font.BOLD,14));
-		religionComboBox.setBounds(300,140,400,30);
-		add(religionComboBox);
+		String sReligion[] = {"", "Christianity", "Buddhism", "Hinduism", "Islam","Judaism","other"};
+		cmbReligion = new JComboBox(sReligion);
+		cmbReligion.setBackground(Color.WHITE);
+		cmbReligion.setFont(new Font("Raleway", Font.BOLD,14));
+		cmbReligion.setBounds(300,140,400,30);
+		add(cmbReligion);
 		
-		JLabel category = new JLabel("Category:");
-		category.setFont(new Font("Raleway", Font.BOLD,20));
-		category.setBounds(100,190,200,30);
-		add(category);
+		lblCategory = new JLabel("Category:");
+		lblCategory.setFont(new Font("Raleway", Font.BOLD,20));
+		lblCategory.setBounds(100,190,200,30);
+		add(lblCategory);
 		
-		String categories[] = {"A","B","C"};
-		categoryComboBox = new JComboBox(categories);
-		categoryComboBox.setBackground(Color.WHITE);
-		categoryComboBox.setFont(new Font("Raleway", Font.BOLD,14));
-		categoryComboBox.setBounds(300,190,400,30);
-		add(categoryComboBox);
+		String sCategory[] = {"A","B","C"};
+		cmbCategory = new JComboBox(sCategory);
+		cmbCategory.setBackground(Color.WHITE);
+		cmbCategory.setFont(new Font("Raleway", Font.BOLD,14));
+		cmbCategory.setBounds(300,190,400,30);
+		add(cmbCategory);
 		
-		JLabel income = new JLabel("Income:");
-		income.setFont(new Font("Raleway", Font.BOLD,20));
-		income.setBounds(100,240,200,30);
-		add(income);
+		lblIncome = new JLabel("Income:");
+		lblIncome.setFont(new Font("Raleway", Font.BOLD,20));
+		lblIncome.setBounds(100,240,200,30);
+		add(lblIncome);
 		
-		String incomes[] = {"","<1,50,000","<2,50,000","<5,00,000","Upto 10,00,000","Above 10,00,000"};
-		incomeComboBox = new JComboBox(incomes);
-		incomeComboBox.setBackground(Color.WHITE);
-		incomeComboBox.setFont(new Font("Raleway", Font.BOLD,14));
-		incomeComboBox.setBounds(300,240,400,30);
-		add(incomeComboBox);
+		String sIncome[] = {"","<1,50,000","<2,50,000","<5,00,000","Upto 10,00,000","Above 10,00,000"};
+		cmbIncome = new JComboBox(sIncome);
+		cmbIncome.setBackground(Color.WHITE);
+		cmbIncome.setFont(new Font("Raleway", Font.BOLD,14));
+		cmbIncome.setBounds(300,240,400,30);
+		add(cmbIncome);
 		
-		JLabel education = new JLabel("Education:");
-		education.setFont(new Font("Raleway", Font.BOLD,20));
-		education.setBounds(100,290,200,30);
-		add(education);
+		lblEducation = new JLabel("Education:");
+		lblEducation.setFont(new Font("Raleway", Font.BOLD,20));
+		lblEducation.setBounds(100,290,200,30);
+		add(lblEducation);
                 
-		String educations[] = {"", "Non-Graduate","Graduate","Post-Graduate","Doctrate","Others"};
-		educationComboBox = new JComboBox(educations);
-		educationComboBox.setBackground(Color.WHITE);
-		educationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
-		educationComboBox.setBounds(300,290,400,30);
-		add(educationComboBox);
+		String sEducation[] = {"", "Non-Graduate","Graduate","Post-Graduate","Doctrate","Others"};
+		cmbEducation = new JComboBox(sEducation);
+		cmbEducation.setBackground(Color.WHITE);
+		cmbEducation.setFont(new Font("Raleway", Font.BOLD,14));
+		cmbEducation.setBounds(300,290,400,30);
+		add(cmbEducation);
                 
 		
-		JLabel occupation = new JLabel("Occupation:");
-		occupation.setFont(new Font("Raleway", Font.BOLD,20));
-		occupation.setBounds(100,340,200,30);
-		add(occupation);
+		lblOccupation = new JLabel("Occupation:");
+		lblOccupation.setFont(new Font("Raleway", Font.BOLD,20));
+		lblOccupation.setBounds(100,340,200,30);
+		add(lblOccupation);
 		
-        String occupations[] = {"", "Salaried","Self-Employmed","Business","Student","Retired","Others"};
-        occupationComboBox = new JComboBox(occupations);
-        occupationComboBox.setBackground(Color.WHITE);
-        occupationComboBox.setFont(new Font("Raleway", Font.BOLD,14));
-        occupationComboBox.setBounds(300,340,400,30);
-		add(occupationComboBox);
+        String sOccupation[] = {"", "Salaried","Self-Employmed","Business","Student","Retired","Others"};
+        cmbOccupation = new JComboBox(sOccupation);
+        cmbOccupation.setBackground(Color.WHITE);
+        cmbOccupation.setFont(new Font("Raleway", Font.BOLD,14));
+        cmbOccupation.setBounds(300,340,400,30);
+		add(cmbOccupation);
 
-		JLabel eaccount = new JLabel("Existing Account:");
-		eaccount.setFont(new Font("Raleway", Font.BOLD,20));
-		eaccount.setBounds(100,590,200,30);
-		add(eaccount);
+		lblEaccount = new JLabel("Existing Account:");
+		lblEaccount.setFont(new Font("Raleway", Font.BOLD,20));
+		lblEaccount.setBounds(100,590,200,30);
+		add(lblEaccount);
 		
-		eaccountY = new JRadioButton("Yes");
-		eaccountY.setFont(new Font("Raleway", Font.BOLD, 14));
-		eaccountY.setBackground(Color.WHITE);
-		eaccountY.setBounds(350,590,100,30);
-        add(eaccountY);
+		radEaccountY = new JRadioButton("Yes");
+		radEaccountY.setFont(new Font("Raleway", Font.BOLD, 14));
+		radEaccountY.setBackground(Color.WHITE);
+		radEaccountY.setBounds(350,590,100,30);
+        add(radEaccountY);
      
         
-        eaccountN = new JRadioButton("No");
-        eaccountN.setFont(new Font("Raleway", Font.BOLD, 14));
-        eaccountN.setBackground(Color.WHITE);
-        eaccountN.setBounds(460,590,100,30);
-        add(eaccountN);
+        radEaccountN = new JRadioButton("No");
+        radEaccountN.setFont(new Font("Raleway", Font.BOLD, 14));
+        radEaccountN.setBackground(Color.WHITE);
+        radEaccountN.setBounds(460,590,100,30);
+        add(radEaccountN);
                 
-       next = new JButton("Next");
-       next.setBackground(Color.BLACK);
-	   next.setForeground(Color.WHITE);
-       next.setFont(new Font("Raleway", Font.BOLD,14));
-       next.setBounds(620,660,80,30);
-       next.addActionListener(this);
-       add(next);
+        btnNext = new JButton("Next");
+        btnNext.setBackground(Color.BLACK);
+        btnNext.setForeground(Color.WHITE);
+        btnNext.setFont(new Font("Raleway", Font.BOLD,14));
+        btnNext.setBounds(620,660,80,30);
+        btnNext.addActionListener(this);
+        add(btnNext);
                 
-       getContentPane().setBackground(Color.WHITE);
+        getContentPane().setBackground(Color.WHITE);
 		
-       setSize(850,800);
-       setLocation(350,10);
-       setVisible(true);
+        setSize(850,800);
+        setLocation(350,10);
+        setVisible(true);
 	}
 	
 	
 	public void actionPerformed(ActionEvent ae) {
-		String religion = (String)religionComboBox.getSelectedItem(); 
-        String category = (String)categoryComboBox.getSelectedItem();
-        String income = (String)incomeComboBox.getSelectedItem();
-        String education = (String)educationComboBox.getSelectedItem();
-        String occupation = (String)occupationComboBox.getSelectedItem();
-        String eaccount = "";
-        if(eaccountY.isSelected()) {
-        	eaccount = "Yes";
-        } else if(eaccountN.isSelected()) {
-        	eaccount = "No";
+		String sReligion = (String)cmbReligion.getSelectedItem(); 
+        String sCategory = (String)cmbCategory.getSelectedItem();
+        String sIncome = (String)cmbIncome.getSelectedItem();
+        String sEducation = (String)cmbEducation.getSelectedItem();
+        String sOccupation = (String)cmbOccupation.getSelectedItem();
+        String sEaccount = "";
+        if(radEaccountY.isSelected()) {
+        	sEaccount = "Yes";
+        } else if(radEaccountN.isSelected()) {
+        	sEaccount = "No";
         }
         
         try {
-        	if(eaccount.equals("")) {
+        	if(sEaccount.equals("")) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
         		Conn c = new Conn();
-                String query = "insert into signup2 values('"+formno+"','"+religion+"','"+category+"','"+income+"','"+education+"','"+occupation+"','"+eaccount+"')";
+                String query = "insert into signup2 values('"+sFormno+"','"+sReligion+"','"+sCategory+"','"+sIncome+"','"+sEducation+"','"+sOccupation+"','"+sEaccount+"')";
                 c.s.executeUpdate(query);
                 
-                new Signup3(formno).setVisible(true);
+                new Signup3(sFormno).setVisible(true);
                 setVisible(false);
         	}
         } catch(Exception e) {

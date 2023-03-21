@@ -19,12 +19,12 @@ public class Signup3 extends JFrame implements ActionListener {
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 3");
 		setLayout(null);
 		
-		ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
-        Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
-        ImageIcon i3 = new ImageIcon(i2);
-        JLabel l14 = new JLabel(i3);
-        l14.setBounds(150, 0, 100, 100);
-        add(l14);
+		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
+        Image img2 = img1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        ImageIcon img3 = new ImageIcon(img2);
+        JLabel lbl1 = new JLabel(img3);
+        lbl1.setBounds(150, 0, 100, 100);
+        add(lbl1);
 
 		lblFormno1 = new JLabel("Form No:");
 		lblFormno1.setFont(new Font("Raleway", Font.BOLD, 14));
@@ -177,8 +177,8 @@ public class Signup3 extends JFrame implements ActionListener {
 	    
 	    getContentPane().setBackground(Color.WHITE);
         
-        setSize(850,850);
-        setLocation(500,120);
+	    setSize(850,800);
+        setLocation(350,10);
         setVisible(true);
         
        
@@ -236,7 +236,7 @@ public class Signup3 extends JFrame implements ActionListener {
                      JOptionPane.showMessageDialog(null, "Card Number: " + sCardno + "\n Pin:"+ sPin);
                      
                      //new Deposit(pin).setVisible(true);
-                     //setVisible(false);
+                     setVisible(false);
                  }
         	 }
         	 else if(ae.getSource() == btnCancel) {
