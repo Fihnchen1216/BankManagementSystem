@@ -18,7 +18,7 @@ public class Signup3 extends JFrame implements ActionListener {
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM - PAGE 3");
 		setLayout(null);
-		
+	
 		ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/bank.png"));
         Image img2 = img1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
         ImageIcon img3 = new ImageIcon(img2);
@@ -51,7 +51,7 @@ public class Signup3 extends JFrame implements ActionListener {
 		lblCardno1.setBounds(100,300,200,30);
         add(lblCardno1);
         
-		lblCardno2 = new JLabel("XXXX-XXXX-XXXX-4184");
+		lblCardno2 = new JLabel("XXXX-XXXX-XXXX-1234");
 		lblCardno2.setFont(new Font("Raleway", Font.BOLD, 18));
 		lblCardno2.setBounds(330,300,250,30);
         add(lblCardno2);
@@ -228,14 +228,14 @@ public class Signup3 extends JFrame implements ActionListener {
         		 if(sAccountType.equals("")){
                      JOptionPane.showMessageDialog(null, "Fill all the required fields");
                  }else{
-                     Conn c = new Conn();
+                     Conn c1 = new Conn();
                      String query1 = "insert into signup3 values('"+sFormno+"','"+sAccountType+"','"+sCardno+"','"+sPin+"','"+sFacility+"')";  
                      String query2 = "insert into login values('"+sFormno+"','"+sCardno+"','"+sPin+"')";
-                     c.s.executeUpdate(query1);
-                     c.s.executeUpdate(query2);
+                     c1.s.executeUpdate(query1);
+                     c1.s.executeUpdate(query2);
                      JOptionPane.showMessageDialog(null, "Card Number: " + sCardno + "\n Pin:"+ sPin);
                      
-                     //new Deposit(pin).setVisible(true);
+                     new Transactions(sCardno,sPin).setVisible(true);
                      setVisible(false);
                  }
         	 }

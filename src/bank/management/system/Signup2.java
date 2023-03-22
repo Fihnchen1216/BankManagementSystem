@@ -14,7 +14,7 @@ public class Signup2 extends JFrame implements ActionListener{
     JLabel lblFormnol1,lblFormnol2, lblAdditionalDetail,lblReligion,lblCategory,lblIncome,lblEducation,lblOccupation,lblEaccount;
     JButton btnNext;
     Signup2(String sFormno){
-		
+	
 		
         this.sFormno = sFormno;
 
@@ -156,9 +156,9 @@ public class Signup2 extends JFrame implements ActionListener{
         	if(sEaccount.equals("")) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
-        		Conn c = new Conn();
+        		Conn c1 = new Conn();
                 String query = "insert into signup2 values('"+sFormno+"','"+sReligion+"','"+sCategory+"','"+sIncome+"','"+sEducation+"','"+sOccupation+"','"+sEaccount+"')";
-                c.s.executeUpdate(query);
+                c1.s.executeUpdate(query);
                 
                 new Signup3(sFormno).setVisible(true);
                 setVisible(false);

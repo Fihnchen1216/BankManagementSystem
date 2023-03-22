@@ -5,18 +5,19 @@ import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 import java.util.*;
+import java.sql.ResultSet;
 import java.util.Date;
 
 public class Withdrawl extends JFrame implements ActionListener{
 
-	String sPin;
+	String sPin,sCardno;
 	JLabel lbl2,lbl3;
 	JTextField txt1,t2;
     JButton btnWithdrawl,btnBack,b3;
     
-	Withdrawl(String sPin){
+	Withdrawl(String sCardno,String sPin){
 		this.sPin = sPin;
-    	
+    	this.sCardno =sCardno;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -57,7 +58,7 @@ public class Withdrawl extends JFrame implements ActionListener{
         
         setSize(880, 900);
         setLocation(350,10);
-        //setUndecorated(true);
+        setUndecorated(true);
         setVisible(true);
         
 	}
@@ -85,15 +86,15 @@ public class Withdrawl extends JFrame implements ActionListener{
                         return;
                     }
                     
-                    c1.s.executeUpdate("insert into bank values('"+sPin+"', '"+date+"', 'Withdrawl', '"+sAmount+"')");
-                    JOptionPane.showMessageDialog(null, "Rs. "+sAmount+" Debited Successfully");
+                    c1.s.executeUpdate("insert into bank values('"+sCardno+"', '"+sPin+"', '"+date+"', 'Withdrawl', '"+sAmount+"')");
+                    JOptionPane.showMessageDialog(null, "$"+sAmount+" Withdrwal Successfully");
                     
                     setVisible(false);
-                    new Transactions(sPin).setVisible(true);
+                    new Transactions(sCardno,sPin).setVisible(true);
                 }
             }else if(ae.getSource()==btnBack){
                 setVisible(false);
-                new Transactions(sPin).setVisible(true);
+                new Transactions(sCardno,sPin).setVisible(true);
             }
         }catch(Exception e){
                 e.printStackTrace();
@@ -102,7 +103,7 @@ public class Withdrawl extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Withdrawl("").setVisible(true);
+		new Withdrawl("","").setVisible(true);
 	}
 	
 }

@@ -84,15 +84,15 @@ public class Login extends JFrame implements ActionListener{
 				pfPin.setText("");
 			}
 			else if(ae.getSource() == btnLogin) {
-				Conn c = new Conn();
+				Conn c1 = new Conn();
 	            String sCardno  = txtCard.getText();
 	            String sPin  = pfPin.getText();
 	            String query  = "select * from login where sCardno = '"+sCardno+"' and sPin = '"+sPin+"'";
 
-	            ResultSet rs = c.s.executeQuery(query);
+	            ResultSet rs = c1.s.executeQuery(query);
 	            if(rs.next()){
                     setVisible(false);
-                    new Transactions(sPin).setVisible(true);
+                    new Transactions(sCardno,sPin).setVisible(true);
 
 	            } else{
                     JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");

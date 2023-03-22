@@ -11,10 +11,10 @@ public class Deposit extends JFrame implements ActionListener{
 	JTextField txtAmount;
     JButton btnDeposit,btnBack,b3;
     JLabel lbl2;
-    String sPin;
-    Deposit(String sPin){
+    String sPin,sCardno;
+    Deposit(String sCardno,String sPin){
     	this.sPin = sPin;
-    	
+    	this.sCardno =sCardno;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -48,7 +48,7 @@ public class Deposit extends JFrame implements ActionListener{
         
         setSize(880, 900);
         setLocation(350,10);
-        //setUndecorated(true);
+        setUndecorated(true);
         setVisible(true);
          
     }
@@ -61,15 +61,15 @@ public class Deposit extends JFrame implements ActionListener{
                 if(txtAmount.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Please enter the Amount to you want to Deposit");
                 }else{
-                    Conn c = new Conn();
-                    c.s.executeUpdate("insert into bank values('"+sPin+"', '"+date+"', 'Deposit', '"+sAmount+"')");
-                    JOptionPane.showMessageDialog(null, "Rs. "+sAmount+" Deposited Successfully");
+                    Conn c1 = new Conn();
+                    c1.s.executeUpdate("insert into bank values('"+sCardno+"', '"+sPin+"', '"+date+"', 'Deposit', '"+sAmount+"')");
+                    JOptionPane.showMessageDialog(null, "$"+sAmount+" Deposited Successfully");
                     setVisible(false);
-                    new Transactions(sPin).setVisible(true);
+                    new Transactions(sCardno,sPin).setVisible(true);
                 }
             }else if(ae.getSource()==btnBack){
                 setVisible(false);
-                new Transactions(sPin).setVisible(true);
+                new Transactions(sCardno,sPin).setVisible(true);
             }
 		} catch(Exception e) {
 			 e.printStackTrace();
@@ -78,7 +78,7 @@ public class Deposit extends JFrame implements ActionListener{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Deposit("").setVisible(true);
+		new Deposit("","").setVisible(true);
 	}
 
 	

@@ -11,12 +11,13 @@ public class Transactions extends JFrame implements ActionListener {
 
 	JLabel lbl2;
     JButton btnDeposit,btnWithdrawl,btnFastCash,btnStatement,btnPinChange,btnBalance,btnExit;
-    String sPin;
-    Transactions(String sPin){
+    String sCardno, sPin;
+    Transactions(String sCardno,String sPin){
     	setTitle("AUTOMATED TELLER MACHINE");
     	setLayout(null);
     	
     	this.sPin = sPin;
+    	this.sCardno = sCardno;
         ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
         Image img2 = img1.getImage().getScaledInstance(880,900, Image.SCALE_DEFAULT);
         ImageIcon img3 = new ImageIcon(img2);
@@ -71,7 +72,7 @@ public class Transactions extends JFrame implements ActionListener {
         
         setSize(880, 900);
         setLocation(350,10);
-        //setUndecorated(true);
+        setUndecorated(true);
         setVisible(true);
     }
     
@@ -81,24 +82,24 @@ public class Transactions extends JFrame implements ActionListener {
 		try {
 			if(ae.getSource()== btnDeposit){
 				setVisible(false);
-	            new Deposit(sPin).setVisible(true);
+	            new Deposit(sCardno,sPin).setVisible(true);
 	            
 			}else if(ae.getSource()== btnWithdrawl) {
 				setVisible(false);
-	            new Withdrawl(sPin).setVisible(true);
+	            new Withdrawl(sCardno,sPin).setVisible(true);
 
 			}else if(ae.getSource()== btnFastCash) {
 				setVisible(false);
-	            //new FastCash(sPin).setVisible(true);
+	            new FastCash(sCardno,sPin).setVisible(true);
 
 			}else if(ae.getSource()== btnStatement) {
-				//new Statement(sPin).setVisible(true);
+				new Statement(sCardno,sPin).setVisible(true);
 			}else if(ae.getSource()== btnPinChange) {
 				setVisible(false);
-	            //new PinChange(sPin).setVisible(true);
+	            new PinChange(sCardno,sPin).setVisible(true);
 			}else if(ae.getSource()== btnBalance) {
 				this.setVisible(false);
-	            //new BalanceEnquiry(sPin).setVisible(true);
+	            new Balance(sCardno,sPin).setVisible(true);
 			}else if(ae.getSource()== btnExit) {
        		 System.exit(0);
 			}
@@ -110,6 +111,6 @@ public class Transactions extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args){
-        new Transactions("").setVisible(true);
+        new Transactions("","").setVisible(true);
 	}
 }

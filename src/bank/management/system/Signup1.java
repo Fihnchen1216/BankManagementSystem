@@ -17,7 +17,7 @@ public class Signup1 extends JFrame implements ActionListener{
 	Random ran = new Random();
 	long lRandom = Math.abs((ran.nextLong() % 9000L) + 1000L);
 	String sRandom = "" + lRandom;
-	
+
 	Signup1(){
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM");
@@ -211,9 +211,9 @@ public class Signup1 extends JFrame implements ActionListener{
         	if(sFname.equals("")) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
-        		Conn c = new Conn();
+        		Conn c1 = new Conn();
         		String query = "insert into signup1 values('"+sFormno+"','"+sFname+"','"+ sLname+"','"+sDOB+"','"+sGender+"','"+sEmail+"','"+sMarital+"','"+sAddress+"','"+sCity+"','"+sState+"','"+sPin+"')";
-        		c.s.executeUpdate(query);
+        		c1.s.executeUpdate(query);
         		
         		new Signup2(sRandom).setVisible(true);
                 setVisible(false);
