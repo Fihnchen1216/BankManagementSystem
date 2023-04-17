@@ -22,6 +22,7 @@ public class Signup1 extends JFrame implements ActionListener{
 	long lRandom = Math.abs((ran.nextLong() % 9000L) + 1000L);
 	String sRandom = "" + lRandom;
 
+
 	Signup1(){
 		
 		setTitle("NEW ACCOUNT APPLICATION FORM");
@@ -70,6 +71,7 @@ public class Signup1 extends JFrame implements ActionListener{
 		add(lblDOB);
 		
 		dcDOB = new JDateChooser();
+		dcDOB.setDateFormatString("dd-MM-yyyy");
 		dcDOB.setBounds(300,240,400,30);
 		dcDOB.setForeground(new Color(105,105,105));
 		add(dcDOB);
@@ -212,9 +214,20 @@ public class Signup1 extends JFrame implements ActionListener{
         String sZipcode = txtZipcode.getText();
        
         try {
-        	if(sFname.isEmpty() || sLname.isEmpty() || sDOB.isEmpty() || sGender.isEmpty() || sEmail.isEmpty() || sMarital.isEmpty()) {
-        		JOptionPane.showMessageDialog(null, "Fill all the required fields");
-        	} else {
+        	if(sFname.isEmpty() || sLname.isEmpty() || sDOB.isEmpty() || sGender.equals("") || sEmail.isEmpty() 
+        			|| sMarital.equals("") || sAddress.isEmpty() || sCity.isEmpty() ||sState.isEmpty() || sZipcode.isEmpty()) {
+        		JOptionPane.showMessageDialog(this, "Fill all the required fields", "Error", JOptionPane.ERROR_MESSAGE);
+        	}else if (!isValidName(sLname) || !isValidName(sFname)) {
+        		JOptionPane.showMessageDialog(this, "Invalid name.", "Error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if(!isValidEmail(sEmail)) {
+        		JOptionPane.showMessageDialog(this, "Invalid email address.", "Error", JOptionPane.ERROR_MESSAGE);
+        	} 
+        	else if(!isValidDate(sDOB)){
+        		JOptionPane.showMessageDialog(this, "Invalid Date of birth.", "Error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else {
+        	
         		Conn c1 = new Conn();
         		String query = "insert into application (form_no,first_name,last_name,dob,gender,email,marital_status,address,city,state,zip_code) "
         				+ "values('"+sFormno+"','"+sFname+"','"+ sLname+"','"+sDOB+"','"+sGender+"','"+sEmail+"','"+sMarital+"','"+sAddress+"','"+sCity+"','"+sState+"','"+sZipcode+"')";
@@ -238,6 +251,24 @@ public class Signup1 extends JFrame implements ActionListener{
         }
         
 	}
+	
+	private boolean isValidEmail(String email) { 
+        String emailPattern = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+
+        return email.matches(emailPattern);
+    } 
+	
+	private boolean isValidName(String name) {
+		String namePattern = "^[A-Za-z]+([\\s'-][A-Za-z]+)*$";
+		
+		return name.matches(namePattern);
+	}
+	private boolean isValidDate(String date) {
+		String datePattern = "^(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20)\\d\\d$";
+		
+		return date.matches(datePattern);
+	}
+	
 	public static void main(String[] args) {
 		new Signup1().setVisible(true);
 	}

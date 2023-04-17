@@ -206,6 +206,8 @@ public class Signup3 extends JFrame implements ActionListener {
         	e.printStackTrace();
         }
 	}
+	
+	
 	public static void main(String[] args) {
 		new Signup3(0,"").setVisible(true);
 	}
