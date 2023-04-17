@@ -12,10 +12,11 @@ public class Transactions extends JFrame implements ActionListener {
 	JLabel lbl2;
     JButton btnDeposit,btnWithdrawl,btnFastCash,btnStatement,btnPinChange,btnBalance,btnExit;
     String sCardno, sPin;
-    Transactions(String sCardno,String sPin){
+    int customerId;
+    Transactions(String sCardno,String sPin,int customerId){
     	setTitle("AUTOMATED TELLER MACHINE");
     	setLayout(null);
-    	
+    	this.customerId = customerId;
     	this.sPin = sPin;
     	this.sCardno = sCardno;
         ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -82,24 +83,24 @@ public class Transactions extends JFrame implements ActionListener {
 		try {
 			if(ae.getSource()== btnDeposit){
 				setVisible(false);
-	            new Deposit(sCardno,sPin).setVisible(true);
+	            new Deposit(sCardno,sPin,customerId).setVisible(true);
 	            
 			}else if(ae.getSource()== btnWithdrawl) {
 				setVisible(false);
-	            new Withdrawl(sCardno,sPin).setVisible(true);
+	            new Withdrawal(sCardno,sPin,customerId).setVisible(true);
 
 			}else if(ae.getSource()== btnFastCash) {
 				setVisible(false);
-	            new FastCash(sCardno,sPin).setVisible(true);
+	            new FastCash(sCardno,sPin,customerId).setVisible(true);
 
 			}else if(ae.getSource()== btnStatement) {
-				new Statement(sCardno,sPin).setVisible(true);
+				new Statements(sCardno,sPin,customerId).setVisible(true);
 			}else if(ae.getSource()== btnPinChange) {
 				setVisible(false);
-	            new PinChange(sCardno,sPin).setVisible(true);
+	            new PinChange(sCardno,sPin,customerId).setVisible(true);
 			}else if(ae.getSource()== btnBalance) {
 				this.setVisible(false);
-	            new Balance(sCardno,sPin).setVisible(true);
+	            new Balance(sCardno,sPin,customerId).setVisible(true);
 			}else if(ae.getSource()== btnExit) {
        		 System.exit(0);
 			}
@@ -111,6 +112,6 @@ public class Transactions extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args){
-        new Transactions("","").setVisible(true);
+        new Transactions("","",0).setVisible(true);
 	}
 }

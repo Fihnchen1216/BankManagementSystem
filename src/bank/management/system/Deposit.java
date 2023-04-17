@@ -2,6 +2,8 @@ package bank.management.system;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.*;
+
 import javax.swing.*;
 import java.util.*;
 import java.util.Date;
@@ -12,9 +14,11 @@ public class Deposit extends JFrame implements ActionListener{
     JButton btnDeposit,btnBack,b3;
     JLabel lbl2;
     String sPin,sCardno;
-    Deposit(String sCardno,String sPin){
+    int customerId;
+    Deposit(String sCardno,String sPin,int customerId){
     	this.sPin = sPin;
     	this.sCardno =sCardno;
+    	this.customerId = customerId;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -56,20 +60,24 @@ public class Deposit extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		try {
 			String sAmount = txtAmount.getText();
-            Date date = new Date();
+			Timestamp date = new Timestamp(System.currentTimeMillis());
             if(ae.getSource()==btnDeposit){
                 if(txtAmount.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Please enter the Amount to you want to Deposit");
+                    JOptionPane.showMessageDialog(null, "Please enter the amount to you want to Deposit");
                 }else{
                     Conn c1 = new Conn();
-                    c1.s.executeUpdate("insert into bank values('"+sCardno+"', '"+sPin+"', '"+date+"', 'Deposit', '"+sAmount+"')");
+                    
+                    String query = "insert into bank (card_no,pin,transaction_date,transaction_type,amount,cus_id) "
+                    		+ "values('"+sCardno+"', '"+sPin+"', '"+date+"', 'Deposit', '"+sAmount+"','"+customerId+"')";
+                    c1.s.executeUpdate(query);
+                    
                     JOptionPane.showMessageDialog(null, "$"+sAmount+" Deposited Successfully");
                     setVisible(false);
-                    new Transactions(sCardno,sPin).setVisible(true);
+                    new Transactions(sCardno,sPin,customerId).setVisible(true);
                 }
             }else if(ae.getSource()==btnBack){
                 setVisible(false);
-                new Transactions(sCardno,sPin).setVisible(true);
+                new Transactions(sCardno,sPin,customerId).setVisible(true);
             }
 		} catch(Exception e) {
 			 e.printStackTrace();
@@ -78,7 +86,7 @@ public class Deposit extends JFrame implements ActionListener{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Deposit("","").setVisible(true);
+		new Deposit("","",0).setVisible(true);
 	}
 
 	

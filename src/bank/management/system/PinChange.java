@@ -12,9 +12,11 @@ public class PinChange extends JFrame implements ActionListener{
 	JPasswordField txt1,txt2;
     JButton btnChange,btnBack;                               
     JLabel lbl2,lbl3,lbl4;
-	PinChange(String sCardno, String sPin){
+    int customerId;
+	PinChange(String sCardno, String sPin,int customerId){
 		this.sPin = sPin;
     	this.sCardno =sCardno;
+    	this.customerId = customerId;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -23,7 +25,7 @@ public class PinChange extends JFrame implements ActionListener{
         JLabel lbl1 = new JLabel(img3);
         lbl1.setBounds(0, 0, 880, 900);
         add(lbl1);
-        
+       
         
         lbl2 = new JLabel("Change your PIN");
         lbl2.setForeground(Color.BLACK);
@@ -89,9 +91,9 @@ public class PinChange extends JFrame implements ActionListener{
                 }
                 
                 Conn c1 = new Conn();
-                String q1 = "update bank set sPin = '"+sRepin+"' where sCardno = '"+sCardno+"' and sPin ='"+sPin+"'";
-                String q2 = "update login set sPin = '"+sRepin+"' where sCardno = '"+sCardno+"' and sPin ='"+sPin+"'";
-                String q3 = "update signup3 set sPin = '"+sRepin+"' where sCardno = '"+sCardno+"' and sPin ='"+sPin+"'";
+                String q1 = "update bank set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"' and cus_id ='"+customerId+"'";
+                String q2 = "update login set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"' and cus_id ='"+customerId+"'";
+                String q3 = "update signup3 set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"'";
 
                 c1.s.executeUpdate(q1);
                 c1.s.executeUpdate(q2);
@@ -99,10 +101,10 @@ public class PinChange extends JFrame implements ActionListener{
 
                 JOptionPane.showMessageDialog(null, "PIN changed successfully");
                 setVisible(false);
-                new Transactions(sCardno,sRepin).setVisible(true);
+                new Transactions(sCardno,sRepin,customerId).setVisible(true);
             
             }else if(ae.getSource()==btnBack){
-                new Transactions(sCardno,sPin).setVisible(true);
+                new Transactions(sCardno,sPin,customerId).setVisible(true);
                 setVisible(false);
             }
         }catch(Exception e){
@@ -111,7 +113,7 @@ public class PinChange extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new PinChange("","").setVisible(true);
+		new PinChange("","",0).setVisible(true);
 	}
 
 }

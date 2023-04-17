@@ -3,7 +3,8 @@ package bank.management.system;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.ResultSet;
+import java.sql.*;
+
 
 public class Login extends JFrame implements ActionListener{
     
@@ -87,12 +88,16 @@ public class Login extends JFrame implements ActionListener{
 				Conn c1 = new Conn();
 	            String sCardno  = txtCard.getText();
 	            String sPin  = pfPin.getText();
-	            String query  = "select * from login where sCardno = '"+sCardno+"' and sPin = '"+sPin+"'";
-
-	            ResultSet rs = c1.s.executeQuery(query);
+	            String query  = "select * from login where card_no = '"+sCardno+"' and pin = '"+sPin+"'";
+	            PreparedStatement selectStmt = c1.c.prepareStatement(query);
+	            
+	            ResultSet rs = selectStmt.executeQuery();
+	            
 	            if(rs.next()){
+	            	int customerId = rs.getInt("cus_id");
+	            	System.out.println(customerId);
                     setVisible(false);
-                    new Transactions(sCardno,sPin).setVisible(true);
+                    new Transactions(sCardno,sPin,customerId).setVisible(true);
 
 	            } else{
                     JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");

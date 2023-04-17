@@ -11,10 +11,11 @@ public class Balance extends JFrame implements ActionListener{
 	String sPin,sCardno;
 	JButton btnBack;
 	JLabel lbl2, lbl3;
-	 
-	Balance(String sCardno,String sPin){
+	int customerId;
+	Balance(String sCardno,String sPin,int customerId){
 		this.sPin = sPin;
     	this.sCardno =sCardno;
+    	this.customerId = customerId;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -43,21 +44,22 @@ public class Balance extends JFrame implements ActionListener{
         lbl1.add(btnBack);
         btnBack.addActionListener(this);
         
-        int iBalance = 0;
+        int balance = 0;
         try{
             Conn c1 = new Conn();
-            ResultSet rs = c1.s.executeQuery("select * from bank where sPin = '"+sPin+"'");
+            String query = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
+            ResultSet rs = c1.s.executeQuery(query);
             while (rs.next()) {
-                if (rs.getString("type").equals("Deposit")) {
-                	iBalance += Integer.parseInt(rs.getString("sAmount"));
+                if (rs.getString("transaction_type").equals("deposit")) {
+                	balance += Integer.parseInt(rs.getString("amount"));
                 } else {
-                	iBalance -= Integer.parseInt(rs.getString("sAmount"));
+                	balance -= Integer.parseInt(rs.getString("amount"));
                 }
             }
         }catch(Exception e){}
         
         
-        lbl3.setText("$"+iBalance);
+        lbl3.setText("$"+balance);
         
         setSize(880, 900);
         setLocation(350,10);
@@ -66,11 +68,11 @@ public class Balance extends JFrame implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent ae) {
 		setVisible(false);
-        new Transactions(sCardno,sPin).setVisible(true);
+        new Transactions(sCardno,sPin,customerId).setVisible(true);
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Balance("","").setVisible(true);
+		new Balance("","",0).setVisible(true);
 	}
 
 }

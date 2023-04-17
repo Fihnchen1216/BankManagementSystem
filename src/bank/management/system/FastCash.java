@@ -12,10 +12,11 @@ public class FastCash extends JFrame implements ActionListener{
 	JLabel lbl2, l2;
 	JButton btn100, btn200, btn300, btn400, btn500, btn600, btnBack;
 	JTextField txt1;
-	
-	FastCash(String sCardno,String sPin){
+	int customerId;
+	FastCash(String sCardno,String sPin,int customerId){
 		this.sPin = sPin;
     	this.sCardno = sCardno;
+    	this.customerId = customerId;
     	setLayout(null);
   	
     	ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icons/ATM.jpg"));
@@ -79,15 +80,17 @@ public class FastCash extends JFrame implements ActionListener{
 	}
 	public void actionPerformed(ActionEvent ae) {
 		try {
-            String sAmount = ((JButton)ae.getSource()).getText().substring(3);
+            String sAmount = ((JButton)ae.getSource()).getText().substring(1,4);
+            System.out.println(sAmount);
             Conn c = new Conn();
-            ResultSet rs = c.s.executeQuery("select * from bank where sPin = '"+sPin+"'");
+            String query1 = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
+            ResultSet rs = c.s.executeQuery(query1);
             int balance = 0;
             while (rs.next()) {
-                if (rs.getString("type").equals("Deposit")) {
-                    balance += Integer.parseInt(rs.getString("sAmount"));
-                } else {
-                    balance -= Integer.parseInt(rs.getString("sAmount"));
+                if (rs.getString("transaction_type").equals("deposit")) {
+                	balance += Integer.parseInt(rs.getString("amount"));
+                }else{
+             	   balance -= Integer.parseInt(rs.getString("amount"));
                 }
             } 
             
@@ -95,17 +98,19 @@ public class FastCash extends JFrame implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Insuffient Balance");
                 return;
             }
-
+     
             if (ae.getSource() == btnBack) {
                 this.setVisible(false);
-                new Transactions(sCardno,sPin).setVisible(true);
+                new Transactions(sCardno,sPin,customerId).setVisible(true);
             }else{
-                Date date = new Date();
-                c.s.executeUpdate("insert into bank values('"+sCardno+"','"+sPin+"', '"+date+"', 'Withdrawl', '"+sAmount+"')");
-                JOptionPane.showMessageDialog(null, "$"+sAmount+" Withdrwal Successfully");
+                Timestamp date = new Timestamp(System.currentTimeMillis());
+                String query2 = "insert into bank (card_no, pin, transaction_date, transaction_type, amount, cus_id)"
+                		+ "values('"+sCardno+"', '"+sPin+"', '"+date+"', 'withdrawal', '"+sAmount+"','"+customerId+"')";
+                c.s.executeUpdate(query2);
+                JOptionPane.showMessageDialog(null, "$"+sAmount+" withdraw Successfully");
                     
                 setVisible(false);
-                new Transactions(sCardno,sPin).setVisible(true);
+                new Transactions(sCardno,sPin,customerId).setVisible(true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +118,7 @@ public class FastCash extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new FastCash("","").setVisible(true);
+		new FastCash("","",0).setVisible(true);
 	}
 
 }

@@ -5,17 +5,19 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class Statement extends JFrame implements ActionListener{
+public class Statements extends JFrame implements ActionListener{
 
 	String sPin,sCardno;
 	JButton btnExit;
     JLabel lbl1,lbl2,lbl3,lbl4;
-	Statement(String sCardno,String sPin){
+    int customerId;
+	Statements(String sCardno,String sPin,int customerId){
 		setTitle("Statement");
 		this.sPin = sPin;
 		this.sCardno = sCardno;
+		this.customerId = customerId;
 		setLayout(null);
-		
+	
 		
         lbl1 = new JLabel();
         lbl1.setBounds(20, 140, 400, 200);
@@ -35,9 +37,10 @@ public class Statement extends JFrame implements ActionListener{
         
         try{
             Conn c = new Conn();
-            ResultSet rs = c.s.executeQuery("select * from login where sPin = '"+sPin+"'");
+            String query1 = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
+            ResultSet rs = c.s.executeQuery(query1);
             while(rs.next()){
-                lbl3.setText("Card Number:    " + rs.getString("sCardno").substring(0, 4) + "XXXXXXXX" + rs.getString("sCardno").substring(12));
+                lbl3.setText("Card Number:    " + rs.getString("card_no").substring(0, 4) + "XXXXXXXX" + rs.getString("card_no").substring(12));
             }
         }catch(Exception e){
         	System.out.println(e);
@@ -46,13 +49,14 @@ public class Statement extends JFrame implements ActionListener{
         try{
             int balance = 0;
             Conn c1  = new Conn();
-            ResultSet rs = c1.s.executeQuery("select * from bank where sPin = '"+sPin+"'");
+            String query2 = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
+            ResultSet rs = c1.s.executeQuery(query2);
             while(rs.next()){
-                lbl1.setText(lbl1.getText() + "<html>"+rs.getString("date")+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$" + rs.getString("sAmount") + "<br><br><html>");
-                if(rs.getString("type").equals("Deposit")){
-                    balance += Integer.parseInt(rs.getString("sAmount"));
+                lbl1.setText(lbl1.getText() + "<html>"+rs.getString("transaction_date")+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("transaction_type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$" + rs.getString("amount") + "<br><br><html>");
+                if(rs.getString("transaction_type").equals("deposit")){
+                    balance += Integer.parseInt(rs.getString("amount"));
                 }else{
-                    balance -= Integer.parseInt(rs.getString("sAmount"));
+                    balance -= Integer.parseInt(rs.getString("amount"));
                 }
             }
             lbl4.setText("Your total Balance: $"+balance);
@@ -79,7 +83,7 @@ public class Statement extends JFrame implements ActionListener{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new Statement("","").setVisible(true);
+		new Statements("","",0).setVisible(true);
 	}
 
 

@@ -5,12 +5,16 @@ import java.awt.*;
 import java.util.*;
 import com.toedter.calendar.*;
 import java.awt.event.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class Signup1 extends JFrame implements ActionListener{
 	
-	JLabel lblFormno,lblPersonalDetail, lblFname, lblLname,lblDOB,lblGender,lblEmail, lblMarital, lblAddress,lblCity,lblState,lblPin;
-	JTextField txtFname, txtLname, txtEmail, txtAddress, txtCity, txtState, txtPin;
+	JLabel lblFormno,lblPersonalDetail, lblFname, lblLname,lblDOB,lblGender,lblEmail, lblMarital, lblAddress,lblCity,lblState,lblZipcode;
+	JTextField txtFname, txtLname, txtEmail, txtAddress, txtCity, txtState, txtZipcode;
 	JButton btnNext;
 	JRadioButton radMale, radFemale, radOther, radMarried, radUnmarried;
 	JDateChooser dcDOB;
@@ -155,15 +159,15 @@ public class Signup1 extends JFrame implements ActionListener{
 		txtState.setBounds(300,540,400,30);
 		add(txtState);
 		
-		lblPin = new JLabel("PIN code:");
-		lblPin.setFont(new Font("Raleway", Font.BOLD,20));
-		lblPin.setBounds(100,590,200,30);
-		add(lblPin);
+		lblZipcode = new JLabel("Zipcode:");
+		lblZipcode.setFont(new Font("Raleway", Font.BOLD,20));
+		lblZipcode.setBounds(100,590,200,30);
+		add(lblZipcode);
 		
-		txtPin = new JTextField();
-		txtPin.setFont(new Font("Raleway", Font.BOLD, 14));
-		txtPin.setBounds(300,590,400,30);
-		add(txtPin);
+		txtZipcode = new JTextField();
+		txtZipcode.setFont(new Font("Raleway", Font.BOLD, 14));
+		txtZipcode.setBounds(300,590,400,30);
+		add(txtZipcode);
                 
 		btnNext = new JButton("Next");
 		btnNext.setBackground(Color.BLACK);
@@ -205,18 +209,29 @@ public class Signup1 extends JFrame implements ActionListener{
 		String sAddress = txtAddress.getText();
         String sCity = txtCity.getText();
         String sState = txtState.getText();
-        String sPin = txtPin.getText();
+        String sZipcode = txtZipcode.getText();
        
         try {
-        	if(sFname.equals("")) {
+        	if(sFname.isEmpty() || sLname.isEmpty() || sDOB.isEmpty() || sGender.isEmpty() || sEmail.isEmpty() || sMarital.isEmpty()) {
         		JOptionPane.showMessageDialog(null, "Fill all the required fields");
         	} else {
         		Conn c1 = new Conn();
-        		String query = "insert into signup1 values('"+sFormno+"','"+sFname+"','"+ sLname+"','"+sDOB+"','"+sGender+"','"+sEmail+"','"+sMarital+"','"+sAddress+"','"+sCity+"','"+sState+"','"+sPin+"')";
-        		c1.s.executeUpdate(query);
+        		String query = "insert into application (form_no,first_name,last_name,dob,gender,email,marital_status,address,city,state,zip_code) "
+        				+ "values('"+sFormno+"','"+sFname+"','"+ sLname+"','"+sDOB+"','"+sGender+"','"+sEmail+"','"+sMarital+"','"+sAddress+"','"+sCity+"','"+sState+"','"+sZipcode+"')";
         		
-        		new Signup2(sRandom).setVisible(true);
-                setVisible(false);
+        		PreparedStatement pstmt = c1.c.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+                pstmt.executeUpdate();
+        		
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int applicationId = generatedKeys.getInt(1);
+                    System.out.println("Generated primary key for new application: " + applicationId);
+                    new Signup2(applicationId, sRandom).setVisible(true);
+                    setVisible(false);
+                } else {
+                    throw new SQLException("no ID obtained.");
+                }
+        		
         	}
         } catch(Exception e) {
         	System.out.println(e);
