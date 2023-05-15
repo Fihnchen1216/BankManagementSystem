@@ -69,13 +69,16 @@ public class Withdrawal extends JFrame implements ActionListener{
             if(ae.getSource()==btnWithdraw){
                 if(txt1.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Please enter the Amount to you want to withdraw");
-                }else{
+                }else if (!isValidNumber(txt1.getText())) {
+                    JOptionPane.showMessageDialog(this, "Invalid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
                     Conn c1 = new Conn();
                     
                     String query1 = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
                     ResultSet rs = c1.s.executeQuery(query1);
                     int balance = 0;
-                    while(rs.next()){
+                    while(rs.next() && isValidNumber(rs.getString("amount"))){
                        if(rs.getString("transaction_type").equals("deposit")){
                     	   balance += Integer.parseInt(rs.getString("amount"));
                        }else{
@@ -103,6 +106,12 @@ public class Withdrawal extends JFrame implements ActionListener{
                 System.out.println("error: "+e);
         }
 	}
+
+    private boolean isValidNumber(String number) {
+        String numberPattern = "^[0-9]+$";
+
+        return number.matches(numberPattern);
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Withdrawal("","",0).setVisible(true);

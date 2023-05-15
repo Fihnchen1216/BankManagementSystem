@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="36f95c0d-c618-49df-9de4-b257ea74a363" name="Changes" comment="" />
+    <list default="true" id="0516f33d-a800-4468-9fc6-3138c5a9215d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/bank/management/system/Login.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/icons/ATM.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/icons/bank.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/management/system/Balance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/management/system/Balance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/management/system/Deposit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/management/system/Deposit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/management/system/FastCash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/management/system/FastCash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/management/system/PinChange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/management/system/PinChange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bank/management/system/Withdrawal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/bank/management/system/Withdrawal.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,28 +27,73 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2OWLFZ95JtWlySUyV3mUBfTk40M" />
+  <component name="ProjectId" id="2Oa2h3FrMScpIi90gUKKGdBvkJj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Github/BankManagementSystem",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/CSC710最终&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RunManager" selected="Application.Login">
+    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="bank.management.system.Login" />
+      <module name="BankManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bank.management.system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Signup3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="bank.management.system.Signup3" />
+      <module name="BankManagementSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bank.management.system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Login" />
+        <item itemvalue="Application.Signup3" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="36f95c0d-c618-49df-9de4-b257ea74a363" name="Changes" comment="" />
-      <created>1681671287920</created>
+      <changelist id="0516f33d-a800-4468-9fc6-3138c5a9215d" name="Changes" comment="" />
+      <created>1681784489170</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1681671287920</updated>
-      <workItem from="1681671288919" duration="68000" />
+      <updated>1681784489170</updated>
+      <workItem from="1681784490176" duration="583000" />
+      <workItem from="1684119928653" duration="12000" />
+      <workItem from="1684119951417" duration="2772000" />
     </task>
     <servers />
   </component>

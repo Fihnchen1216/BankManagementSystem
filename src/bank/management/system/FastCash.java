@@ -86,7 +86,7 @@ public class FastCash extends JFrame implements ActionListener{
             String query1 = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
             ResultSet rs = c.s.executeQuery(query1);
             int balance = 0;
-            while (rs.next()) {
+            while (rs.next() && isValidNumber(rs.getString("amount"))) {
                 if (rs.getString("transaction_type").equals("deposit")) {
                 	balance += Integer.parseInt(rs.getString("amount"));
                 }else{
@@ -116,6 +116,12 @@ public class FastCash extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 	}
+
+    private boolean isValidNumber(String number) {
+        String numberPattern = "^[0-9]+$";
+
+        return number.matches(numberPattern);
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new FastCash("","",0).setVisible(true);

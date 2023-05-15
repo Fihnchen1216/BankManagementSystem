@@ -77,32 +77,29 @@ public class PinChange extends JFrame implements ActionListener{
             String sNewpin = txt1.getText();
             String sRepin = txt2.getText();
             
-            if(!sNewpin.equals(sRepin)){
-                JOptionPane.showMessageDialog(null, "Entered PIN does not match");
-                return;
-            }
-            
             if(ae.getSource()==btnChange){
-                if (txt1.getText().equals("")){
+                if(!isValidNumber(sNewpin) && !isValidNumber(sRepin)){
+                    JOptionPane.showMessageDialog(this, "Invalid PIN(Must be numbers)", "Error", JOptionPane.ERROR_MESSAGE);
+                }else if(!sNewpin.equals(sRepin)){
+                    JOptionPane.showMessageDialog(null, "Entered PIN does not match");
+                }else if (txt1.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Enter New PIN");
-                }
-                if (txt2.getText().equals("")){
+                }else if (txt2.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Re-Enter new PIN");
                 }
-                
-                Conn c1 = new Conn();
-                String q1 = "update bank set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"' and cus_id ='"+customerId+"'";
-                String q2 = "update login set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"' and cus_id ='"+customerId+"'";
-                String q3 = "update signup3 set pin = '"+sRepin+"' where card_no = '"+sCardno+"' and pin ='"+sPin+"'";
+                else {
+                    Conn c1 = new Conn();
+                    String q1 = "update bank set pin = '" + sRepin + "' where card_no = '" + sCardno + "' and pin ='" + sPin + "' and cus_id ='" + customerId + "'";
+                    String q2 = "update login set pin = '" + sRepin + "' where card_no = '" + sCardno + "' and pin ='" + sPin + "' and cus_id ='" + customerId + "'";
 
-                c1.s.executeUpdate(q1);
-                c1.s.executeUpdate(q2);
-                c1.s.executeUpdate(q3);
+                    c1.s.executeUpdate(q1);
+                    c1.s.executeUpdate(q2);
 
-                JOptionPane.showMessageDialog(null, "PIN changed successfully");
-                setVisible(false);
-                new Transactions(sCardno,sRepin,customerId).setVisible(true);
-            
+
+                    JOptionPane.showMessageDialog(null, "PIN changed successfully");
+                    setVisible(false);
+                    new Transactions(sCardno, sRepin, customerId).setVisible(true);
+                }
             }else if(ae.getSource()==btnBack){
                 new Transactions(sCardno,sPin,customerId).setVisible(true);
                 setVisible(false);
@@ -111,6 +108,11 @@ public class PinChange extends JFrame implements ActionListener{
             e.printStackTrace();
         }
 	}
+    private boolean isValidNumber(String number) {
+        String numberPattern = "^[0-9]+$";
+
+        return number.matches(numberPattern);
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new PinChange("","",0).setVisible(true);

@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.util.*;
 import java.util.Date;
 
+
+
 public class Deposit extends JFrame implements ActionListener{
 	
 	JTextField txtAmount;
@@ -64,7 +66,10 @@ public class Deposit extends JFrame implements ActionListener{
             if(ae.getSource()==btnDeposit){
                 if(txtAmount.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Please enter the amount to you want to Deposit");
-                }else{
+                }else if (!isValidNumber(txtAmount.getText())) {
+                    JOptionPane.showMessageDialog(this, "Invalid amount.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else{
                     Conn c1 = new Conn();
                     
                     String query = "insert into bank (card_no,pin,transaction_date,transaction_type,amount,cus_id) "
@@ -83,7 +88,11 @@ public class Deposit extends JFrame implements ActionListener{
 			 e.printStackTrace();
 		}
 	}
+    private boolean isValidNumber(String number) {
+        String numberPattern = "^[0-9]+$";
 
+        return number.matches(numberPattern);
+    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Deposit("","",0).setVisible(true);

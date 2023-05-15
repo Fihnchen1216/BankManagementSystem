@@ -49,14 +49,17 @@ public class Balance extends JFrame implements ActionListener{
             Conn c1 = new Conn();
             String query = "select * from bank where card_no = '"+sCardno+"' and pin = '"+sPin+"' and cus_id ='"+customerId+"'";
             ResultSet rs = c1.s.executeQuery(query);
-            while (rs.next()) {
+            while (rs.next() && isValidNumber(rs.getString("amount"))) {
                 if (rs.getString("transaction_type").equals("deposit")) {
                 	balance += Integer.parseInt(rs.getString("amount"));
                 } else {
                 	balance -= Integer.parseInt(rs.getString("amount"));
                 }
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("error: "+e);
+        }
         
         
         lbl3.setText("$"+balance);
@@ -69,6 +72,12 @@ public class Balance extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		setVisible(false);
         new Transactions(sCardno,sPin,customerId).setVisible(true);
+    }
+
+    private boolean isValidNumber(String number) {
+        String numberPattern = "^[0-9]+$";
+
+        return number.matches(numberPattern);
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
